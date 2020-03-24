@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.dooly.bucket.repository.BucketDao">
+ 
+ 	<insert id="insert" parameterType="bucketVO">
+	INSERT INTO tbl_bucket(	
+		B_SEQ,
+		B_SUBJECT,
+		B_CONTENT,
+		B_DATE,
+		B_CONFIRM
+ 	)VALUES(
+ 		BUC_SEQ.NEXTVAL,
+		#{b_subject},
+		#{b_content},
+		#{b_date},
+		#{b_confirm}
+		)
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="bucketVO">
+ 		UPDATE tbl_bucket SET
+			b_subject = #{b_subject},
+			b_content = #{b_content},
+			b_date = #{b_date},
+			b_confirm = #{b_confirm}
+ 		WHERE b_seq = #{b_seq}
+ 	</update>
+ 	
+ 
+ </mapper> 

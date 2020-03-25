@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script>
 	$(function() {
 		$(".btn-save").click(function() {
@@ -33,7 +36,7 @@
 
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/include/include-header.jspf" %>
+	
 	 <form method="POST" modelAttribute="bucketVO">
 	 	<div class="form-group m-3">
 	 		<label for="b_subject">마이버킷</label>
@@ -45,16 +48,16 @@
 	 	</div>
 	 	<div class="form-group m-3">
 	 		<label for="b_content">내용</label>
-	 		<input name="b_content" placeholder="내용" value="${bucketVO.b_content }" class="form-control">
+	 		<input name="b_content" placeholder="내용" value="${bucketVO.b_content}" class="form-control">
 	 	</div>
 	 	<c:choose>
 		 	<c:when test="${CHANGE == 'INSERT'}">
-		 		<input type="hidden" name="b_confirm" placeholder="확인란" value="X" class="form-control">
+		 		<input type="hidden" name="b_confirm" placeholder="확인란" class="form-control">
 		 	</c:when>
 		 	<c:otherwise>
 		 	<div class="form-group m-3">
 	 			<label for="b_content">달성</label>
-		 		<input name="b_confirm" id="b_confirm" placeholder="확인란" value="${bucketVO.b_confirm}" class="form-control">
+		 		<input name="b_confirm" id="b_confirm" placeholder="확인란" readonly value="${bucketVO.b_confirm}" class="form-control">
 		 	</div>
 		 	</c:otherwise>
 	 	</c:choose>

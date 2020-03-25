@@ -26,6 +26,9 @@
 		padding:0;
 	}
 
+	body{
+		line-height: 1;
+	}
 		
 	.tr_value #btn-edit, #btn-delete{
 		margin: 2px;
@@ -46,15 +49,12 @@
 	.btn-confirm{
 		color: blue;
 		font-weight: bold;
-	}
-	
-	.con{
 		cursor: pointer;
 	}
 	
+		
 	.buc-form{
 		text-align: center;
-		margin: 0;
 	}
 	.ed{
 		display: flex;
@@ -64,6 +64,11 @@
 		width: 800px;
 		margin: 0 auto;
 	}
+	.underline{
+		text-decoration: line-through;
+	}
+
+	
 </style>
 
 <script>
@@ -72,35 +77,36 @@
 			document.location.href = "${rootPath}/insert"
 		})
 	
-		<!--
+	
 		$(".btn-confirm").click(function() {
-				var data = ""
-				var b_seq = $(this).data("id");			
-				var text = $('.con').text();
-				if(text == "X"){
-					data = $('.con').text("O");
-				}else if(text == "O"){
-					data = $('.con').text("X");
+				let confirm = $(this).data("confirm");
+				let b_seq = $(this).data("id");			
+				let subject = $(this).data("subject");
+				let date = $(this).data("date");
+				
+				if(confirm == "X"){
+					confirm = 'O';
+				}else if(confirm == "O"){
+					confirm = 'X';
 				}
 			$.ajax({
-				url : "${rootPath}/update",
-				data : {b_confirm:data, b_seq:b_seq},
-				type : "GET",
+				url : "${rootPath}/update?b_seq="+b_seq,
+				data : {b_confirm: confirm, b_subject:subject, b_date:date},
+				type : "POST",
 				success : function(result) {
-					alert("통신성공")
+					location.reload();
 				},
 				error : function() {
 					alert("통신에러")
 				}
 			})
 		});
-		-->
 	})
 </script>
 </head>
 <body>
 	<section class="table-responsive">
-	<table class="table table-hover table-striped table_form">
+	<table class="table table-hover table-striped text-center table_form">
 		<tr>
 			<th>NO</th>
 			<th>My Bucket</th>
@@ -114,11 +120,11 @@
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${BUC_LIST}" var="buc" varStatus="index">
-					<tr class="tr_value" data-id="${buc.b_seq}">
-						<td class="th-NO">${index.count}</td>
-						<td>${buc.b_subject}</td>
-						<td>${buc.b_date}</td> 
-						<td class="btn-confirm"><a class="con" id="b_confirm">${buc.b_confirm}</a></td> 
+					<tr class="tr_value text-center">
+						<td >${index.count}</td>
+						<td <c:if test="${buc.b_confirm == 'O'}">class='underline'</c:if>>${buc.b_subject}</td>
+						<td <c:if test="${buc.b_confirm == 'O'}">class='underline'</c:if>>${buc.b_date}</td> 
+						<td class="btn-confirm" data-confirm="${buc.b_confirm}" data-id="${buc.b_seq}" data-subject="${buc.b_subject}" data-date="${buc.b_date}">${buc.b_confirm}</td> 
 						<td class="ed">
 							<a href="${rootPath}/update?b_seq=${buc.b_seq}" id="btn-edit" >수정</a>
 							<a href="${rootPath}/delete?b_seq=${buc.b_seq}" id="btn-delete">삭제</a>
@@ -129,9 +135,9 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
-	</section>
-	<div class="buc-form">
+	<div class="p-3 buc-form">
 		<button id="b-button" class="btn btn-primary btn-bucket">버킷리스트 작성</button>
 	</div>
+	</section>
 </body>
 </html>

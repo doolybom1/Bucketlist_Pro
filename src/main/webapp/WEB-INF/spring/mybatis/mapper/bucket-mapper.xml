@@ -10,14 +10,14 @@
 		B_SEQ,
 		B_SUBJECT,
 		B_CONTENT,
-		B_DATE,
-		B_CONFIRM
+		B_DATE
+		
  	)VALUES(
  		BUC_SEQ.NEXTVAL,
 		#{b_subject},
 		#{b_content},
-		#{b_date},
-		#{b_confirm}
+		#{b_date}
+		
 		)
  	</insert>
  	

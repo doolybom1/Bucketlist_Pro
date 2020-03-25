@@ -42,13 +42,14 @@ public class BucketController {
 	public String insert(@ModelAttribute("bucketVO") BucketVO buckVO, Model model) {
 	
 		model.addAttribute("CHANGE", "INSERT");
-		return "insert";
+		return "home";
 	}
 
 	@RequestMapping(value = "/insert",method=RequestMethod.POST)
-	public String insert(BucketVO buckVO) {
+	public String insert(BucketVO bucketVO) {
 		
-		bService.insert(buckVO);
+		log.debug("컴펌 확인"+bucketVO.getB_confirm());
+		bService.insert(bucketVO);
 		//model.addAttribute("CHANGE", "INSERT");
 		
 		return "redirect:/";
@@ -61,7 +62,7 @@ public class BucketController {
 		BucketVO bVO = bService.findBySeq(seq);
 		model.addAttribute("bucketVO", bVO);
 		model.addAttribute("CHANGE", "UPDATE");
-		log.debug("컴펌 확인"+bVO.getB_confirm());
+		
 		return "insert";
 	}
 	
@@ -69,7 +70,7 @@ public class BucketController {
 	@RequestMapping(value = "/update",method=RequestMethod.POST)
 	public String update(BucketVO bucketVO, Model model) {
 		
-		//log.debug("컴펌 확인"+bucketVO.getB_confirm());		
+		log.debug("컴펌 확인"+bucketVO.getB_confirm());		
 		bService.update(bucketVO);
 		return "redirect:/list";
 	}
